@@ -23,7 +23,11 @@ public class UserRepository {
 	}
 	
 	public User saveUser(User user) {
-		entityManager.persist(user);
+		if (user.getId() != null) {
+			user = entityManager.merge(user);
+		} else {
+			entityManager.persist(user);
+		}
 		entityManager.flush();
 		return user;
 	}

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -93,6 +92,12 @@ public class RestControllerEndPoints {
 		User savedUser = userService.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{newUserId}").buildAndExpand(savedUser.getId()).toUri();
 		return ResponseEntity.created(location).build();
+	}
+	
+	@PostMapping(path = "/user/updateuser")
+	public ResponseEntity<User> updateUser(@RequestBody User user) {
+		User savedUser = userService.save(user);
+		return new ResponseEntity<User>(savedUser, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(path = "/user/{userId}")

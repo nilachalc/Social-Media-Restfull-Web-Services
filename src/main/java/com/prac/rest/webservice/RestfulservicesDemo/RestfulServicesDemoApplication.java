@@ -15,14 +15,6 @@ public class RestfulServicesDemoApplication {
 		SpringApplication.run(RestfulServicesDemoApplication.class, args);
 	}
 
-	//The caller should pass the the local value every time for this type of implementation.
-	//@Bean
-	//public LocaleResolver localResolver() {
-	//	SessionLocaleResolver resolver = new SessionLocaleResolver();
-	//	resolver.setDefaultLocale(Locale.US);
-	//	return resolver;
-	//}
-	
 	// While using the AcceptHeaderLocaleResolver, the caller must have to send the "Accept-Language" header property with the required locale as the value.
 	@Bean
 	public LocaleResolver localResolver() {
