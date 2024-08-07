@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class User {
 	@ApiModelProperty(notes="Birth date should be in the past")
 	@Column(name = "user_dob", nullable = false)
 	private Date dob;
-	@OneToMany(targetEntity = Post.class, mappedBy = "user")
+	@OneToMany(targetEntity = Post.class, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Post> posts = new ArrayList<Post>(); 
 	
 	public User() {}

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class Post {
 	@Column(name = "post_time")
 	private Date postingTime;
 	@JsonIgnore
-	@ManyToOne(targetEntity = User.class, optional = false)
+	@ManyToOne(targetEntity = User.class, optional = false, fetch = FetchType.LAZY)
 	private User user;
 	
 	public Post() {}
