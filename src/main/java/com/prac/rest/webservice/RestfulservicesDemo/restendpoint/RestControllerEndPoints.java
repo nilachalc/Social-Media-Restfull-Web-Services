@@ -6,16 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.web.DefaultSecurityFilterChain;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -189,27 +183,5 @@ public class RestControllerEndPoints {
 		MappingJacksonValue jacksonValue = new MappingJacksonValue(bean);
 		jacksonValue.setFilters(filter);
 		return jacksonValue;
-	}
-}
-
-@Configuration
-@EnableWebSecurity
-class SecurityConfig{
-	
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
-		DefaultSecurityFilterChain builder = null;
-		try {
-			httpSecurity
-            .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless services like microservices
-            .authorizeHttpRequests(authz -> authz
-                .anyRequest().authenticated()
-            )
-            .httpBasic(); // Needs to removed.
-			builder = httpSecurity.build();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return builder;
 	}
 }
