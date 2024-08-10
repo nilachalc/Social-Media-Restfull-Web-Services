@@ -4,14 +4,18 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +36,12 @@ import com.prac.rest.webservice.RestfulservicesDemo.beans.User;
 import com.prac.rest.webservice.RestfulservicesDemo.exception.UserNotFoundException;
 import com.prac.rest.webservice.RestfulservicesDemo.service.PostService;
 import com.prac.rest.webservice.RestfulservicesDemo.service.UserService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/Restful-Services-Demo")
@@ -56,6 +66,16 @@ public class RestControllerEndPoints {
 	//	return messageSource.getMessage("goodmorning.message", null, locale);
 	//}
 	
+	@Operation(summary = "Greet the user", 
+    description = "Returns a greeting message to the user",
+    responses = {
+        @ApiResponse(description = "Successful Operation", 
+                     responseCode = "200", 
+                     content = @Content(schema = @Schema(implementation = String.class))),
+        @ApiResponse(description = "Invalid Parameter", 
+                     responseCode = "400", 
+                     content = @Content(schema = @Schema(implementation = String.class)))
+    })
 	@RequestMapping(path = "/sayGM/internationalized", method = RequestMethod.GET)
 	public String sayGoodMorning() {
 		return messageSource.getMessage("goodmorning.message", null, LocaleContextHolder.getLocale());
@@ -169,5 +189,27 @@ public class RestControllerEndPoints {
 		MappingJacksonValue jacksonValue = new MappingJacksonValue(bean);
 		jacksonValue.setFilters(filter);
 		return jacksonValue;
+	}
+}
+
+@Configuration
+@EnableWebSecurity
+class SecurityConfig{
+	
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
+		DefaultSecurityFilterChain builder = null;
+		try {
+			httpSecurity
+            .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless services like microservices
+            .authorizeHttpRequests(authz -> authz
+                .anyRequest().authenticated()
+            )
+            .httpBasic(); // Needs to removed.
+			builder = httpSecurity.build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return builder;
 	}
 }
