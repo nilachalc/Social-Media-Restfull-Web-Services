@@ -1,4 +1,4 @@
-package com.prac.rest.webservice.RestfulservicesDemo.beans;
+package com.prac.rest.webservice.restfulservicesdemo.beans;
 
 import java.util.ArrayList;
 import java.util.Date;

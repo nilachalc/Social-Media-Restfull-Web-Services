@@ -1,4 +1,4 @@
-package com.prac.rest.webservice.RestfulservicesDemo.beans;
+package com.prac.rest.webservice.restfulservicesdemo.beans;
 
 public class Name {
 	private String fisrtName;

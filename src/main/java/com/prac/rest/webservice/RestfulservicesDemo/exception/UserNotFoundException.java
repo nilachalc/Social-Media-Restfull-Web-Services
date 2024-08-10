@@ -1,4 +1,4 @@
-package com.prac.rest.webservice.RestfulservicesDemo.exception;
+package com.prac.rest.webservice.restfulservicesdemo.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

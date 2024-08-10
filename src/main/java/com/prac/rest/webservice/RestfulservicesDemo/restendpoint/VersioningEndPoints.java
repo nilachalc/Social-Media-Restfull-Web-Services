@@ -1,12 +1,12 @@
-package com.prac.rest.webservice.RestfulservicesDemo.restendpoint;
+package com.prac.rest.webservice.restfulservicesdemo.restendpoint;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.prac.rest.webservice.RestfulservicesDemo.beans.Name;
-import com.prac.rest.webservice.RestfulservicesDemo.beans.PersonV1;
-import com.prac.rest.webservice.RestfulservicesDemo.beans.PersonV2;
+import com.prac.rest.webservice.restfulservicesdemo.beans.Name;
+import com.prac.rest.webservice.restfulservicesdemo.beans.PersonV1;
+import com.prac.rest.webservice.restfulservicesdemo.beans.PersonV2;
 
 @RestController
 @RequestMapping(path = "/Restful-Services-Demo/versioning")

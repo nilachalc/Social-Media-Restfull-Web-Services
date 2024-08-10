@@ -1,4 +1,4 @@
-package com.prac.rest.webservice.RestfulservicesDemo.repository;
+package com.prac.rest.webservice.restfulservicesdemo.repository;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.prac.rest.webservice.RestfulservicesDemo.beans.User;
+import com.prac.rest.webservice.restfulservicesdemo.beans.User;
 
 @Repository
 public class UserRepository {

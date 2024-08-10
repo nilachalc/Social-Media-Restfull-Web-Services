@@ -1,4 +1,4 @@
-package com.prac.rest.webservice.RestfulservicesDemo;
+package com.prac.rest.webservice.restfulservicesdemo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

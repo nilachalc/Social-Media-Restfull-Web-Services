@@ -1,4 +1,4 @@
-package com.prac.rest.webservice.RestfulservicesDemo.beans;
+package com.prac.rest.webservice.restfulservicesdemo.beans;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;

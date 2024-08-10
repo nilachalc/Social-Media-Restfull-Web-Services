@@ -1,4 +1,4 @@
-package com.prac.rest.webservice.RestfulservicesDemo.exception;
+package com.prac.rest.webservice.restfulservicesdemo.exception;
 
 import java.util.Date;
 

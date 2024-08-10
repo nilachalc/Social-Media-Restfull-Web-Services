@@ -1,4 +1,4 @@
-package com.prac.rest.webservice.RestfulservicesDemo.service;
+package com.prac.rest.webservice.restfulservicesdemo.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.prac.rest.webservice.RestfulservicesDemo.beans.Post;
-import com.prac.rest.webservice.RestfulservicesDemo.repository.PostRepository;
+import com.prac.rest.webservice.restfulservicesdemo.beans.Post;
+import com.prac.rest.webservice.restfulservicesdemo.repository.PostRepository;
 
 @Service
 @Transactional

@@ -1,4 +1,4 @@
-package com.prac.rest.webservice.RestfulservicesDemo.beans;
+package com.prac.rest.webservice.restfulservicesdemo.beans;
 
 public class PersonV2 {
 	private Name name;

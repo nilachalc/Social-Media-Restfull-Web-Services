@@ -1,4 +1,4 @@
-package com.prac.rest.webservice.RestfulservicesDemo.restendpoint;
+package com.prac.rest.webservice.restfulservicesdemo.restendpoint;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -29,13 +29,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.prac.rest.webservice.RestfulservicesDemo.beans.HellowWorldBean;
-import com.prac.rest.webservice.RestfulservicesDemo.beans.Post;
-import com.prac.rest.webservice.RestfulservicesDemo.beans.TestBean;
-import com.prac.rest.webservice.RestfulservicesDemo.beans.User;
-import com.prac.rest.webservice.RestfulservicesDemo.exception.UserNotFoundException;
-import com.prac.rest.webservice.RestfulservicesDemo.service.PostService;
-import com.prac.rest.webservice.RestfulservicesDemo.service.UserService;
+import com.prac.rest.webservice.restfulservicesdemo.beans.HellowWorldBean;
+import com.prac.rest.webservice.restfulservicesdemo.beans.Post;
+import com.prac.rest.webservice.restfulservicesdemo.beans.TestBean;
+import com.prac.rest.webservice.restfulservicesdemo.beans.User;
+import com.prac.rest.webservice.restfulservicesdemo.exception.UserNotFoundException;
+import com.prac.rest.webservice.restfulservicesdemo.service.PostService;
+import com.prac.rest.webservice.restfulservicesdemo.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
