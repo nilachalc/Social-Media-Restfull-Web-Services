@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.prac.rest.webservice.restfulservicesdemo.beans.SocailMediaUser;
 
 @Repository
-public class UserRepository {
+public class SocialMediaUserRepository {
 	@Autowired
 	EntityManager entityManager;
 	

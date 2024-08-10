@@ -7,27 +7,27 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prac.rest.webservice.restfulservicesdemo.beans.SocailMediaUser;
-import com.prac.rest.webservice.restfulservicesdemo.repository.UserRepository;
+import com.prac.rest.webservice.restfulservicesdemo.repository.SocialMediaUserRepository;
 
 @Service
 @Transactional
 public class UserService {
 	@Autowired
-	UserRepository userRepository;
+	SocialMediaUserRepository socialMediaUserRepository;
 
 	public List<SocailMediaUser> fetchAll() {
-		return userRepository.fetchAll();
+		return socialMediaUserRepository.fetchAll();
 	}
 	
 	public SocailMediaUser fetchAUser(Integer id) {
-		return userRepository.fetchById(id);
+		return socialMediaUserRepository.fetchById(id);
 	}
 	
 	public SocailMediaUser save(SocailMediaUser socailMediaUser) {
-		return userRepository.saveUser(socailMediaUser);
+		return socialMediaUserRepository.saveUser(socailMediaUser);
 	}
 	
 	public void deleteAUser(Integer id) {
-		userRepository.deleteUser(id);
+		socialMediaUserRepository.deleteUser(id);
 	}
 }
