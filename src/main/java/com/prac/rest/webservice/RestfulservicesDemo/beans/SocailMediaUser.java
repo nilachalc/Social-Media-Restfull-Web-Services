@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,24 +18,25 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "User_Info")
-public class User {
+@Table(name = "Social_Media_User_Info")
+public class SocailMediaUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "user_id")
+	@Column(name = "sm_user_id")
 	private Integer id;
-	@Size(message = "User Name can't exceed 50 charecters.", max = 50, min = 2)
-	@Column(name = "user_name", nullable = false)
+	@Size(message = "SocailMediaUser Name can't exceed 50 charecters.", max = 50, min = 2)
+	@Column(name = "sm_user_name", nullable = false)
 	private String name;
 	@Past
-	@Column(name = "user_dob", nullable = false)
+	@Column(name = "sm_user_dob", nullable = false)
 	private Date dob;
-	@OneToMany(targetEntity = Post.class, mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(targetEntity = Post.class, mappedBy = "socailMediaUser", fetch = FetchType.EAGER)
 	private List<Post> posts = new ArrayList<Post>(); 
 	
-	public User() {}
+	public SocailMediaUser() {}
 	
-	public User(Integer id, String name, Date dob) {
+	public SocailMediaUser(Integer id, String name, Date dob) {
 		super();
 		this.id = id;
 		this.name = name;

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.prac.rest.webservice.restfulservicesdemo.beans.Post;
-import com.prac.rest.webservice.restfulservicesdemo.beans.User;
+import com.prac.rest.webservice.restfulservicesdemo.beans.SocailMediaUser;
 
 @Repository
 public class PostRepository {
@@ -20,32 +20,32 @@ public class PostRepository {
 	}
 	
 	public Post savePostForAUser(Integer userId, Post post) {
-		User user = entityManager.find(User.class, userId);
-		user.addPosts(post);
-		post.setUser(user);
+		SocailMediaUser socailMediaUser = entityManager.find(SocailMediaUser.class, userId);
+		socailMediaUser.addPosts(post);
+		post.setUser(socailMediaUser);
 		entityManager.persist(post);
 		entityManager.flush();
 		return post;
 	}
 	
 	public List<Post> savePostsForAUser(Integer userId, List<Post> posts) {
-		User user = entityManager.find(User.class, userId);
+		SocailMediaUser socailMediaUser = entityManager.find(SocailMediaUser.class, userId);
 		for (Post post : posts) {
-			user.addPosts(post);
-			post.setUser(user);
+			socailMediaUser.addPosts(post);
+			post.setUser(socailMediaUser);
 			entityManager.persist(post);
 		}
 		
 		entityManager.flush();
-		return user.getPosts();
+		return socailMediaUser.getPosts();
 	}
 	
 	public Post updatePostForAUser(Integer userId, Post post) {
-		User user = entityManager.find(User.class, userId);
+		SocailMediaUser socailMediaUser = entityManager.find(SocailMediaUser.class, userId);
 		Post mergePost = null;
-		for (Post dbpost : user.getPosts()) {
+		for (Post dbpost : socailMediaUser.getPosts()) {
 			if (dbpost.getId().equals(post.getId())) {
-				post.setUser(user);
+				post.setUser(socailMediaUser);
 				mergePost = entityManager.merge(post);
 			}
 		}
@@ -53,9 +53,9 @@ public class PostRepository {
 	}
 	
 	public Post deletePostOfAUserById(Integer userId, Integer postId) {
-		User user = entityManager.find(User.class, userId);
+		SocailMediaUser socailMediaUser = entityManager.find(SocailMediaUser.class, userId);
 		Post postToBeDeleted = entityManager.find(Post.class, postId);
-		user.getPosts().remove(postToBeDeleted);
+		socailMediaUser.getPosts().remove(postToBeDeleted);
 		entityManager.remove(postToBeDeleted);
 		return postToBeDeleted;
 	}

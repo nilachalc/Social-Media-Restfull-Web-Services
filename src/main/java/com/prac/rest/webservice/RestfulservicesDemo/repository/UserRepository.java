@@ -7,33 +7,33 @@ import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.prac.rest.webservice.restfulservicesdemo.beans.User;
+import com.prac.rest.webservice.restfulservicesdemo.beans.SocailMediaUser;
 
 @Repository
 public class UserRepository {
 	@Autowired
 	EntityManager entityManager;
 	
-	public User fetchById(Integer id) {
-		return entityManager.find(User.class, id);
+	public SocailMediaUser fetchById(Integer id) {
+		return entityManager.find(SocailMediaUser.class, id);
 	}
 	
-	public List<User> fetchAll() {
-		return entityManager.createQuery("SELECT U FROM User U", User.class).getResultList();
+	public List<SocailMediaUser> fetchAll() {
+		return entityManager.createQuery("SELECT SMU FROM SocailMediaUser SMU JOIN FETCH SMU.posts p ORDER BY SMU.id", SocailMediaUser.class).getResultList();
 	}
 	
-	public User saveUser(User user) {
-		if (user.getId() != null) {
-			user = entityManager.merge(user);
+	public SocailMediaUser saveUser(SocailMediaUser socailMediaUser) {
+		if (socailMediaUser.getId() != null) {
+			socailMediaUser = entityManager.merge(socailMediaUser);
 		} else {
-			entityManager.persist(user);
+			entityManager.persist(socailMediaUser);
 		}
 		entityManager.flush();
-		return user;
+		return socailMediaUser;
 	}
 	
 	public void deleteUser(Integer id) {
-		User userToBeDeleted = entityManager.find(User.class, id);
+		SocailMediaUser userToBeDeleted = entityManager.find(SocailMediaUser.class, id);
 		entityManager.remove(userToBeDeleted);
 	}
 }

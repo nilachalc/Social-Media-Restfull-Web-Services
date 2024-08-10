@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.prac.rest.webservice.restfulservicesdemo.beans.HellowWorldBean;
 import com.prac.rest.webservice.restfulservicesdemo.beans.Post;
 import com.prac.rest.webservice.restfulservicesdemo.beans.TestBean;
-import com.prac.rest.webservice.restfulservicesdemo.beans.User;
+import com.prac.rest.webservice.restfulservicesdemo.beans.SocailMediaUser;
 import com.prac.rest.webservice.restfulservicesdemo.exception.UserNotFoundException;
 import com.prac.rest.webservice.restfulservicesdemo.service.PostService;
 import com.prac.rest.webservice.restfulservicesdemo.service.UserService;
@@ -53,65 +53,36 @@ public class RestControllerEndPoints {
 	
 	private SimpleBeanPropertyFilter simpleBeanPropertyFilter; 
 	
-		//As we have used SessionLocaleResolver in configuration so the caller should pass the the local value every time
-		//for this type of implementation.
-	//@RequestMapping(path = "/sayGM/internationalized", method = RequestMethod.GET)
-	//public String sayGoodMorning(@RequestHeader(name = "App_Locale", required = false) Locale locale) {
-	//	return messageSource.getMessage("goodmorning.message", null, locale);
-	//}
-	
-	@Operation(summary = "Greet the user", 
-    description = "Returns a greeting message to the user",
-    responses = {
-        @ApiResponse(description = "Successful Operation", 
-                     responseCode = "200", 
-                     content = @Content(schema = @Schema(implementation = String.class))),
-        @ApiResponse(description = "Invalid Parameter", 
-                     responseCode = "400", 
-                     content = @Content(schema = @Schema(implementation = String.class)))
-    })
-	@RequestMapping(path = "/sayGM/internationalized", method = RequestMethod.GET)
-	public String sayGoodMorning() {
-		return messageSource.getMessage("goodmorning.message", null, LocaleContextHolder.getLocale());
-	}
-	
-	@RequestMapping(path = "/fetchhellowworld/{passedValue}")
-	public HellowWorldBean getHellowWorld(@PathVariable String passedValue) {
-		HellowWorldBean hellowWorldBean = new HellowWorldBean();
-		hellowWorldBean.setMessage("Hellow World, " + passedValue);
-		return hellowWorldBean;
-	}
-	
 	@RequestMapping(path = "/users", method = RequestMethod.GET)
-	public List<User> getAllUsers() {
+	public List<SocailMediaUser> getAllUsers() {
 		return userService.fetchAll();
 	}
 	
 	@GetMapping(path = "/user/{userId}")
-	public User getUserById(@PathVariable Integer userId) throws UserNotFoundException {
-		User user = userService.fetchAUser(userId);
-		if (user == null) {
-			throw new UserNotFoundException("The User with Id --> " + userId + " does not exists.");
+	public SocailMediaUser getUserById(@PathVariable Integer userId) throws UserNotFoundException {
+		SocailMediaUser socailMediaUser = userService.fetchAUser(userId);
+		if (socailMediaUser == null) {
+			throw new UserNotFoundException("The SocailMediaUser with Id --> " + userId + " does not exists.");
 		}
-		return user;
+		return socailMediaUser;
 	}
 	
 	@PostMapping(path = "/user")
-	public User saveUser(@Valid @RequestBody User user) {
-		return userService.save(user);
+	public SocailMediaUser saveUser(@Valid @RequestBody SocailMediaUser socailMediaUser) {
+		return userService.save(socailMediaUser);
 	}
 	
 	@PostMapping(path = "/user/getId")
-	public ResponseEntity<User> saveUserAndReturnId(@RequestBody User user) {
-		User savedUser = userService.save(user);
+	public ResponseEntity<SocailMediaUser> saveUserAndReturnId(@RequestBody SocailMediaUser socailMediaUser) {
+		SocailMediaUser savedUser = userService.save(socailMediaUser);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{newUserId}").buildAndExpand(savedUser.getId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 	
 	@PostMapping(path = "/user/updateuser")
-	public ResponseEntity<User> updateUser(@RequestBody User user) {
-		User savedUser = userService.save(user);
-		return new ResponseEntity<User>(savedUser, HttpStatus.OK);
+	public ResponseEntity<SocailMediaUser> updateUser(@RequestBody SocailMediaUser socailMediaUser) {
+		SocailMediaUser savedUser = userService.save(socailMediaUser);
+		return new ResponseEntity<SocailMediaUser>(savedUser, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(path = "/user/{userId}")
@@ -142,6 +113,35 @@ public class RestControllerEndPoints {
 	@DeleteMapping(path = "/user/{userId}/posts/{postId}")
 	public Post deletePostOfAUserById(@PathVariable Integer userId, @PathVariable Integer postId) throws UserNotFoundException {
 		return postService.deletePostOfAUserById(userId, postId);
+	}
+	
+	//As we have used SessionLocaleResolver in configuration so the caller should pass the the local value every time
+	//for this type of implementation.
+	//@RequestMapping(path = "/sayGM/internationalized", method = RequestMethod.GET)
+	//public String sayGoodMorning(@RequestHeader(name = "App_Locale", required = false) Locale locale) {
+	//	return messageSource.getMessage("goodmorning.message", null, locale);
+	//}
+	
+	@Operation(summary = "Greet the user", 
+	description = "Returns a greeting message to the user",
+	responses = {
+	    @ApiResponse(description = "Successful Operation", 
+	                 responseCode = "200", 
+	                 content = @Content(schema = @Schema(implementation = String.class))),
+	    @ApiResponse(description = "Invalid Parameter", 
+	                 responseCode = "400", 
+	                 content = @Content(schema = @Schema(implementation = String.class)))
+	})
+	@RequestMapping(path = "/sayGM/internationalized", method = RequestMethod.GET)
+	public String sayGoodMorning() {
+		return messageSource.getMessage("goodmorning.message", null, LocaleContextHolder.getLocale());
+	}
+	
+	@RequestMapping(path = "/fetchhellowworld/{passedValue}")
+	public HellowWorldBean getHellowWorld(@PathVariable String passedValue) {
+		HellowWorldBean hellowWorldBean = new HellowWorldBean();
+		hellowWorldBean.setMessage("Hellow World, " + passedValue);
+		return hellowWorldBean;
 	}
 	
 	@RequestMapping(path = "/testBeans", method = RequestMethod.GET)
