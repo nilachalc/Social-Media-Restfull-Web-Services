@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -25,12 +23,6 @@ class SecurityConfig {
 	
 	@Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
-		// The below lines are commented because they can only be used once to hash the password and insert nto the DB
-		// Otherwise it would start giving unique key violation error from the DB.
-		
-		//UserDetails user = User.withUsername("Olivia").password("Olivia@m").passwordEncoder(pass -> passwordEncoder().encode(pass)).roles("USER").build();
-		//userDetailsManager.createUser(user);
-		
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
         userDetailsManager.setUsersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?");
         userDetailsManager.setAuthoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
