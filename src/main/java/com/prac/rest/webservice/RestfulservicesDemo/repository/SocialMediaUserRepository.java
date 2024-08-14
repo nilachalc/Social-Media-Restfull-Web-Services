@@ -8,16 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.prac.rest.webservice.restfulservicesdemo.beans.SocailMediaUser;
+import com.prac.rest.webservice.restfulservicesdemo.service.utility.TrackExecutionTime;
 
 @Repository
 public class SocialMediaUserRepository {
 	@Autowired
 	EntityManager entityManager;
 	
+	@TrackExecutionTime
 	public SocailMediaUser fetchById(Integer id) {
 		return entityManager.find(SocailMediaUser.class, id);
 	}
 	
+	@TrackExecutionTime
 	public List<SocailMediaUser> fetchAll() {
 		return entityManager.createQuery("SELECT SMU FROM SocailMediaUser SMU JOIN FETCH SMU.posts p ORDER BY SMU.id", SocailMediaUser.class).getResultList();
 	}

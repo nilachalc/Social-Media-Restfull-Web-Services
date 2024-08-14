@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.prac.rest.webservice.restfulservicesdemo.beans.Post;
 import com.prac.rest.webservice.restfulservicesdemo.beans.SocailMediaUser;
+import com.prac.rest.webservice.restfulservicesdemo.service.utility.TrackExecutionTime;
 
 @Repository
 public class PostRepository {
@@ -19,6 +20,7 @@ public class PostRepository {
 		return entityManager.createQuery("SELECT P FROM Post P WHERE P.user.id = :id", Post.class).setParameter("id", userId).getResultList();
 	}
 	
+	@TrackExecutionTime
 	public Post savePostForAUser(Integer userId, Post post) {
 		SocailMediaUser socailMediaUser = entityManager.find(SocailMediaUser.class, userId);
 		socailMediaUser.addPosts(post);
@@ -28,6 +30,7 @@ public class PostRepository {
 		return post;
 	}
 	
+	@TrackExecutionTime
 	public List<Post> savePostsForAUser(Integer userId, List<Post> posts) {
 		SocailMediaUser socailMediaUser = entityManager.find(SocailMediaUser.class, userId);
 		for (Post post : posts) {
@@ -40,6 +43,7 @@ public class PostRepository {
 		return socailMediaUser.getPosts();
 	}
 	
+	@TrackExecutionTime
 	public Post updatePostForAUser(Integer userId, Post post) {
 		SocailMediaUser socailMediaUser = entityManager.find(SocailMediaUser.class, userId);
 		Post mergePost = null;
